@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Image from "next/image"
-
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -67,13 +66,14 @@ const AuthForm = ({type}: { type : FormType}) => {
           const idToken = await userCredentials.user.getIdToken();
 
           if(!idToken) {
-            toast.erorr('Sign In Failed')
+            toast.error('Sign In Failed')
             return
           }
 
-          await signIn([
-            email, idToken
-          ])
+          await signIn({
+            email,
+            idToken
+          })
 
           toast.success(`Welcome back, ${values.email}. Sign In successfully.`);
           router.push('/');
